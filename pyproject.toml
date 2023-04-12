@@ -3,33 +3,33 @@ build-backend = "hatchling.build"
 requires = ["hatchling"]
 
 [project]
-authors = [{name = "REPLACE_NAME REPLACE_SURNAME"}]
+authors = [{name = "Alvaro Bartolome", email = "alvarobartt@gmail.com"}]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = []
-description = "REPLACE_PACKAGE_DESCRIPTION"
+description = "🚂 Fine-tune OpenAI models for text classification, question answering, and more"
 dynamic = ["version"]
 keywords = []
 license = "MIT"
-name = "REPLACE_PACKAGE_NAME"
+name = "opentrain"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8,<3.11"
 
 [project.urls]
-Documentation = "https://REPLACE_GITHUB_USERNAME.github.io/REPLACE_PACKAGE_NAME"
-Issues = "https://github.com/REPLACE_GITHUB_USERNAME/REPLACE_PACKAGE_NAME/issues"
-Source = "https://github.com/REPLACE_GITHUB_USERNAME/REPLACE_PACKAGE_NAME"
+Documentation = "https://alvarobartt.github.io/opentrain"
+Issues = "https://github.com/alvarobartt/opentrain/issues"
+Source = "https://github.com/alvarobartt/opentrain"
 
 [tool.hatch.version]
-path = "src/REPLACE_PACKAGE_NAME/__init__.py"
+path = "src/opentrain/__init__.py"
 
 [project.optional-dependencies]
 docs = [
@@ -79,7 +79,7 @@ select = [
 ]
 
 [tool.ruff.isort]
-known-first-party = ["REPLACE_PACKAGE_NAME"]
+known-first-party = ["opentrain"]
 
 [tool.hatch.envs.test]
 features = [
@@ -90,7 +90,7 @@ features = [
 run = "pytest tests/ --durations 0 -s"
 
 [[tool.hatch.envs.test.matrix]]
-python = ["37", "38", "39", "310"]
+python = ["38", "39", "310", "311"]
 
 [tool.hatch.envs.docs]
 features = [

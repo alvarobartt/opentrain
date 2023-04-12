@@ -7,4 +7,4 @@
 
 ---
 
-`opentrain` is a simple Python package to fine-tune OpenAI models for task specific purposes such as text classification, token classfication, or question answering.
+`opentrain` is a simple Python package to fine-tune OpenAI models for task-specific purposes such as text classification, token classification, or question answering.

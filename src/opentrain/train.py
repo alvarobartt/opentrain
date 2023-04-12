@@ -46,4 +46,3 @@ class OpenAITrainer:
                 json.dump(entry, f)
                 f.write("\n")
         return file_path.as_posix()
-

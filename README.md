@@ -36,6 +36,18 @@ trainer.train(
 )
 ```
 
+### 🤖 Predict
+
+```python
+import openai
+from opentrain.predict import OpenAIPredict
+
+openai.api_key = "<ADD_OPENAI_API_KEY_HERE>"
+
+predict = OpenAIPredict(model="ada:ft-personal-2021-03-01-00-00-01")
+predict.predict("I love to play ->")
+```
+
 ## ⚠️ Warning
 
 Fine-tuning OpenAI models via their API may take too long, so please be patient. Also, bear in mind

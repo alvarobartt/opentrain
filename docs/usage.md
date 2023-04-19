@@ -22,3 +22,15 @@ trainer.train(
     ],
 )
 ```
+
+## 🤖 Predict
+
+```python
+import openai
+from opentrain.predict import OpenAIPredict
+
+openai.api_key = "<ADD_OPENAI_API_KEY_HERE>"
+
+predict = OpenAIPredict(model="ada:ft-personal-2021-03-01-00-00-01")
+predict.predict("I love to play ->")
+```

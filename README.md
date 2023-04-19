@@ -9,6 +9,8 @@
 
 `opentrain` is a simple Python package to fine-tune OpenAI models for task-specific purposes such as text classification, token classification, or question answering.
 
+More information about OpenAI Fine-tuning at https://platform.openai.com/docs/guides/fine-tuning.
+
 ## 💻 Usage
 
 ### 🦾 Fine-tune
@@ -34,6 +36,18 @@ trainer.train(
 )
 ```
 
+### 🤖 Predict
+
+```python
+import openai
+from opentrain.predict import OpenAIPredict
+
+openai.api_key = "<ADD_OPENAI_API_KEY_HERE>"
+
+predict = OpenAIPredict(model="ada:ft-personal-2021-03-01-00-00-01")
+predict.predict("I love to play ->")
+```
+
 ## ⚠️ Warning
 
 Fine-tuning OpenAI models via their API may take too long, so please be patient. Also, bear in mind
@@ -45,4 +59,4 @@ fine-tuning and click on "Fine-tune training" to see all the fine-tune training 
 
 Besides that, in the OpenAI Playground at https://platform.openai.com/playground, you'll see a dropdown
 menu for all the available models, both the default ones and the ones you fine-tuned. Usually, in the 
-following format `<MODEL>:ft-personal-<DATE>`, e.g. `ada:ft-personal-2021-03-01`.
+following format `<MODEL>:ft-personal-<DATE>`, e.g. `ada:ft-personal-2021-03-01-00-00-01`.

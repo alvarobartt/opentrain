@@ -7,7 +7,26 @@ import openai
 
 
 class OpenAITrainer:
+    """A class for training (fine-tuning) OpenAI models.
+
+    Attributes:
+        model: The model to fine-tune.
+        fine_tune_id: The fine-tune ID.
+
+    Example:
+        >>> from opentrain import OpenAITrainer
+        >>> trainer = OpenAITrainer()
+        >>> trainer.train("training_data.jsonl")
+        >>> trainer.track_training()
+    """
+
     def __init__(self, model: str = "ada") -> None:
+        """Initialize `OpenAITrainer`.
+
+        Args:
+            model: The model to fine-tune. Must be one of the following: ada, babbage,
+                curie, davinci.
+        """
         assert model in [
             "ada",
             "babbage",
@@ -22,6 +41,17 @@ class OpenAITrainer:
         epochs: int = 10,
         batch_size: int = 32,
     ) -> str:
+        """Train (fine-tune) an OpenAI model on a given dataset.
+
+        Args:
+            path_or_buf: The path to the training data, or a list of dictionaries
+                containing the training data.
+            epochs: The number of epochs to train the model for.
+            batch_size: The batch size to use for training.
+
+        Returns:
+            The fine-tune ID.
+        """
         if isinstance(path_or_buf, list):
             file_path = self._prepare_training_data(path_or_buf)
         elif isinstance(path_or_buf, Path):
@@ -53,11 +83,24 @@ class OpenAITrainer:
         return self.fine_tune_id
 
     def track_training(self) -> str:
+        """Track the training progress of the model being fine-tuned.
+
+        Returns:
+            A string containing the training events.
+        """
         if not self.fine_tune_id:
             raise ValueError("You must first train the model.")
         return openai.FineTune.stream_events(self.fine_tune_id)
 
     def _prepare_training_data(self, buf: list) -> str:
+        """Prepare the training data for OpenAI, and save it to a JSONL file.
+
+        Args:
+            buf: A list of dictionaries containing the training data.
+
+        Returns:
+            The path to the JSONL file.
+        """
         file_path = Path.cwd() / "training_data.jsonl"
         with open(file_path, "w") as f:
             for entry in buf:

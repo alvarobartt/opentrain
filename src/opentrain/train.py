@@ -45,6 +45,11 @@ class OpenAITrainer:
             stacklevel=2,
         )
         return self.fine_tune_id
+    
+    def track_training(self) -> str:
+        if not self.fine_tune_id:
+            raise ValueError("You must first train the model.")
+        return openai.FineTune.stream_events(self.fine_tune_id)
 
     def _prepare_training_data(self, buf: list) -> str:
         file_path = Path.cwd() / "training_data.jsonl"

@@ -61,7 +61,7 @@ jobs:
       - name: run-tests
         run: pytest tests/ -s --durations 0
         env:
-          OPENAI_API_TOKEN: ${{ secrets.OPENAI_API_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
   deploy-docs:
     needs: run-tests

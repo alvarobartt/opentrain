@@ -15,7 +15,7 @@ class OpenAIPredict:
         ), "You must provide either a `model` or a `fine_tune_id`, not both."
 
         self.model = (
-            model if model is not None else self._model_from_fine_tune_id(fine_tune_id)
+            self._model_from_fine_tune_id(fine_tune_id) if fine_tune_id else model
         )
 
     def __call__(self, prompt: str, max_tokens: int = 1) -> str:
@@ -27,4 +27,9 @@ class OpenAIPredict:
         return response.choices[0].text
 
     def _model_from_fine_tune_id(self, fine_tune_id: str) -> str:
-        return openai.FineTune.retrieve(fine_tune_id).fine_tuned_model
+        model = openai.FineTune.retrieve(fine_tune_id).fine_tuned_model
+        if model is None:
+            raise ValueError(
+                "The model is not yet ready. Please wait a few minutes and try again."
+            )
+        return model

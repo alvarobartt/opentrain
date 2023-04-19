@@ -8,6 +8,9 @@ import openai
 
 class OpenAITrainer:
     def __init__(self, model: str = "ada") -> None:
+        assert model in ["ada", "babbage", "curie", "davinci"], (
+            "The model must be one of the following: ada, babbage, curie, davinci."
+        )
         self.model = model
 
     def train(

@@ -45,4 +45,4 @@ fine-tuning and click on "Fine-tune training" to see all the fine-tune training 
 
 Besides that, in the OpenAI Playground at https://platform.openai.com/playground, you'll see a dropdown
 menu for all the available models, both the default ones and the ones you fine-tuned. Usually, in the 
-following format `<MODEL>:ft-personal-<DATE>`, e.g. `ada:ft-personal-2021-03-01`.
+following format `<MODEL>:ft-personal-<DATE>`, e.g. `ada:ft-personal-2021-03-01-00-00-01`.

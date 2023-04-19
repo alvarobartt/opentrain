@@ -1,6 +1,7 @@
-import pytest
+import os
+
+import openai
 
 
-@pytest.fixture
-def hello_world() -> str:
-    return "hello world!"
+def pytest_sessionstart():
+    openai.api_key = os.getenv("OPENAI_API_KEY")

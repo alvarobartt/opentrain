@@ -90,7 +90,7 @@ features = [
 run = "pytest tests/ --durations 0 -s"
 
 [[tool.hatch.envs.test.matrix]]
-python = ["38", "39", "310", "311"]
+python = ["38", "39", "310"]
 
 [tool.hatch.envs.docs]
 features = [

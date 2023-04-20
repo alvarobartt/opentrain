@@ -4,7 +4,7 @@ from typing import Union
 
 import openai
 
-from opentrain.utils import prepare_openai_dataset
+from opentrain.utils import prepare_openai_dataset, validate_openai_dataset
 
 
 class OpenAITrainer:
@@ -59,6 +59,11 @@ class OpenAITrainer:
             file_path = path_or_buf.as_posix()
         else:
             file_path = path_or_buf
+
+        assert validate_openai_dataset(file_path), (
+            "The dataset is not valid, since it must contain only prompt-completion"
+            " pairs."
+        )
 
         upload_response = openai.File.create(
             file=open(file_path, "rb"),

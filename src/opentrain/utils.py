@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from typing import List
+from uuid import uuid4
 
 import openai
 
@@ -42,3 +43,22 @@ def prepare_openai_dataset(data: list) -> str:
             f.write("\n")
     return file_path.as_posix()
 
+
+def validate_openai_dataset(file_path: str) -> bool:
+    """Validate the training data for OpenAI.
+
+    Args:
+        file_path: The path to the training data.
+
+    Returns:
+        True if the training data is valid, False otherwise.
+    """
+    with open(file_path, "r") as f:
+        for line in f:
+            try:
+                json_line = json.loads(line)
+            except json.JSONDecodeError:
+                raise ValueError(f"Line {line} is not a JSON object.")
+            if not ["prompt", "completion"] == list(json_line.keys()):
+                return False
+    return True

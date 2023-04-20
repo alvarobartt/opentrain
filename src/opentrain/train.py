@@ -1,9 +1,10 @@
-import json
 import warnings
 from pathlib import Path
 from typing import Union
 
 import openai
+
+from opentrain.utils import prepare_openai_dataset, validate_openai_dataset
 
 
 class OpenAITrainer:
@@ -53,11 +54,16 @@ class OpenAITrainer:
             The fine-tune ID.
         """
         if isinstance(path_or_buf, list):
-            file_path = self._prepare_training_data(path_or_buf)
+            file_path = prepare_openai_dataset(path_or_buf)
         elif isinstance(path_or_buf, Path):
             file_path = path_or_buf.as_posix()
         else:
             file_path = path_or_buf
+
+        assert validate_openai_dataset(file_path), (
+            "The dataset is not valid, since it must contain only prompt-completion"
+            " pairs."
+        )
 
         upload_response = openai.File.create(
             file=open(file_path, "rb"),
@@ -91,19 +97,3 @@ class OpenAITrainer:
         if not self.fine_tune_id:
             raise ValueError("You must first train the model.")
         return openai.FineTune.stream_events(self.fine_tune_id)
-
-    def _prepare_training_data(self, buf: list) -> str:
-        """Prepare the training data for OpenAI, and save it to a JSONL file.
-
-        Args:
-            buf: A list of dictionaries containing the training data.
-
-        Returns:
-            The path to the JSONL file.
-        """
-        file_path = Path.cwd() / "training_data.jsonl"
-        with open(file_path, "w") as f:
-            for entry in buf:
-                json.dump(entry, f)
-                f.write("\n")
-        return file_path.as_posix()

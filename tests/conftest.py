@@ -9,6 +9,17 @@ def pytest_sessionstart():
 
 
 @pytest.fixture
+def training_data() -> list:
+    """Mock training data to use as few tokens as possible."""
+    return [
+        {
+            "prompt": "A",
+            "completion": "B",
+        },
+    ]
+
+
+@pytest.fixture
 def fine_tune_id() -> str:
     """Fine-tune ID for the IMDB text classification model trained in `examples/text_classification_imdb.ipynb`.
     """

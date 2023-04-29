@@ -66,7 +66,11 @@ def validate_openai_dataset(file_path: Union[str, Path]) -> bool:
     if isinstance(file_path, Path):
         file_path = file_path.as_posix()
     with open(file_path, "r") as f:
-        for line in f.readlines():
+        lines = f.readlines()
+        if len(lines) < 1:
+            # TODO(alvarobartt): log error with `structlog`
+            return False
+        for line in lines:
             try:
                 PromptCompletion(**json.loads(line))
             except json.JSONDecodeError:

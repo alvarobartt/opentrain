@@ -4,7 +4,7 @@ import openai
 import pytest
 
 
-def pytest_sessionstart():
+def pytest_sessionstart() -> None:
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
 

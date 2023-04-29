@@ -5,6 +5,8 @@ from uuid import uuid4
 
 import openai
 
+from opentrain.schemas import PromptCompletion
+
 
 def list_fine_tunes(just_succeeded: bool = True) -> List[str]:
     """List all fine-tuned models in your OpenAI account.
@@ -63,11 +65,11 @@ def validate_openai_dataset(file_path: Union[str, Path]) -> bool:
     if isinstance(file_path, Path):
         file_path = file_path.as_posix()
     with open(file_path, "r") as f:
-        for line in f:
+        for line in f.readlines():
             try:
-                json_line = json.loads(line)
+                PromptCompletion(**json.loads(line))
             except json.JSONDecodeError as e:
                 raise ValueError(f"Line {line} is not a JSON object.") from e
-            if not ["prompt", "completion"] == list(json_line.keys()):
-                return False
+            except Exception as e:
+                raise ValueError(f"Line {line} is not a prompt-completion pair.") from e
     return True

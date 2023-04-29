@@ -2,6 +2,7 @@ import json
 import warnings
 from functools import cached_property
 from pathlib import Path
+from time import sleep
 from typing import Any, Dict, List, Union
 from uuid import uuid4
 
@@ -34,14 +35,16 @@ class Dataset:
             f.write(content)
         del content
 
-    def delete(self) -> bool:
-        try:
-            openai.File.delete(
-                sid=self.file_id, organization=self.organization, request_timeout=30
-            )
-            return True
-        except TryAgain:
-            return False
+    def delete(self) -> None:
+        file_deleted = False
+        while file_deleted is False:
+            try:
+                openai.File.delete(
+                    sid=self.file_id, organization=self.organization, request_timeout=10
+                )
+                file_deleted = True
+            except TryAgain:
+                sleep(1)
 
     @classmethod
     def from_file(

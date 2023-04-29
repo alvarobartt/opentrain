@@ -39,6 +39,7 @@ class OpenAITrainer:
     def train(
         self,
         path_or_buf: Union[str, Path, list],
+        local_validation: bool = False,
         epochs: int = 10,
         batch_size: int = 32,
     ) -> str:
@@ -47,12 +48,16 @@ class OpenAITrainer:
         Args:
             path_or_buf: The path to the training data, or a list of dictionaries
                 containing the training data.
+            local_validation: If True, validate the training data locally before
+                uploading it to OpenAI. Defaults to False, which means that the
+                data will be validated, but in OpenAI-side.
             epochs: The number of epochs to train the model for.
             batch_size: The batch size to use for training.
 
         Returns:
             The fine-tune ID.
         """
+        # TODO(alvarobartt): create a `Dataset` class to handle the training data.
         if isinstance(path_or_buf, list):
             file_path = prepare_openai_dataset(path_or_buf)
         elif isinstance(path_or_buf, Path):
@@ -60,11 +65,14 @@ class OpenAITrainer:
         else:
             file_path = path_or_buf
 
-        assert validate_openai_dataset(file_path), (
-            "The dataset is not valid, since it must contain only prompt-completion"
-            " pairs."
-        )
+        if local_validation:
+            assert validate_openai_dataset(file_path), (
+                "The dataset is not valid, since it must contain only prompt-completion"
+                " pairs."
+            )
 
+        # TODO(alvarobartt): one may want to use a previously uploaded file, so we
+        #  should check if the file is already uploaded, and if so, then use it.
         upload_response = openai.File.create(
             file=open(file_path, "rb"),
             purpose="fine-tune",

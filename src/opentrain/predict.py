@@ -1,5 +1,3 @@
-from typing import Union
-
 import openai
 
 
@@ -16,26 +14,14 @@ class OpenAIPredict:
         "neutral"
     """
 
-    def __init__(
-        self, model: Union[str, None] = None, fine_tune_id: Union[str, None] = None
-    ) -> None:
+    def __init__(self, model: str) -> None:
         """Initialize `OpenAIPredict`.
 
         Args:
             model: The model to use for prediction, that can be either an existing OpenAI
                 model or a fine-tuned model.
-            fine_tune_id: The fine-tune ID to use for prediction.
         """
-        assert (
-            model or fine_tune_id
-        ), "You must provide either a `model` or a `fine_tune_id`."
-        assert not (
-            model and fine_tune_id
-        ), "You must provide either a `model` or a `fine_tune_id`, not both."
-
-        self.model = (
-            self._model_from_fine_tune_id(fine_tune_id) if fine_tune_id else model
-        )
+        self.model = model
 
     def __call__(self, prompt: str, max_tokens: int = 1) -> str:
         """Generate text from a prompt.
@@ -54,7 +40,8 @@ class OpenAIPredict:
         )
         return response.choices[0].text
 
-    def _model_from_fine_tune_id(self, fine_tune_id: str) -> str:
+    @classmethod
+    def from_fine_tune_id(cls, fine_tune_id: str) -> str:
         """Get the model from a fine-tune ID.
 
         Args:
@@ -71,4 +58,4 @@ class OpenAIPredict:
             raise ValueError(
                 "The model is not yet ready. Please wait a few minutes and try again."
             )
-        return model
+        return cls(model=model)

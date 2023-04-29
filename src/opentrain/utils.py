@@ -68,8 +68,12 @@ def validate_openai_dataset(file_path: Union[str, Path]) -> bool:
         for line in f.readlines():
             try:
                 PromptCompletion(**json.loads(line))
-            except json.JSONDecodeError as e:
-                raise ValueError(f"Line {line} is not a JSON object.") from e
-            except Exception as e:
-                raise ValueError(f"Line {line} is not a prompt-completion pair.") from e
+            except json.JSONDecodeError:
+                # TODO(alvarobartt): add `structlog`
+                # raise ValueError(f"Line {line} is not a JSON object.") from e
+                return False
+            except Exception:
+                # TODO(alvarobartt): add `structlog`
+                # raise ValueError(f"Line {line} is not a prompt-completion pair.") from e
+                return False
     return True

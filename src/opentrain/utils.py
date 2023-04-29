@@ -19,6 +19,7 @@ def list_fine_tunes(just_succeeded: bool = True) -> List[str]:
     """
     fine_tunes = openai.FineTune.list()["data"]
     if just_succeeded:
+        # TODO(alvarobartt): add an `Enum` to handle possible statuses.
         return [
             fine_tune["fine_tuned_model"]
             for fine_tune in fine_tunes

@@ -53,6 +53,7 @@ class OpenAITrainer:
         Returns:
             The fine-tune ID.
         """
+        # TODO(alvarobartt): create a `Dataset` class to handle the training data.
         if isinstance(path_or_buf, list):
             file_path = prepare_openai_dataset(path_or_buf)
         elif isinstance(path_or_buf, Path):
@@ -65,6 +66,8 @@ class OpenAITrainer:
             " pairs."
         )
 
+        # TODO(alvarobartt): one may want to use a previously uploaded file, so we
+        #  should check if the file is already uploaded, and if so, then use it.
         upload_response = openai.File.create(
             file=open(file_path, "rb"),
             purpose="fine-tune",

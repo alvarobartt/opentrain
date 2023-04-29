@@ -3,7 +3,7 @@ import tempfile
 
 import pytest
 
-from opentrain.dataset import Dataset
+from opentrain.dataset import Dataset, list_datasets
 
 
 class TestDatasetFromRecords:
@@ -49,3 +49,10 @@ class TestDatasetFromFile:
         assert info["id"] == self.dataset.file_id
         assert info["object"] == "file"
         assert info["purpose"] == "fine-tune"
+
+
+def test_list_datasets() -> None:
+    datasets = list_datasets()
+    assert isinstance(datasets, list)
+    assert len(datasets) > 0
+    assert isinstance(datasets[0], Dataset)

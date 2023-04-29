@@ -29,8 +29,10 @@ class Dataset:
         return openai.File.download(id=self.file_id, organization=self.organization)
 
     def to_file(self, output_path: str) -> None:
+        content = self.download()
         with open(output_path, "wb") as f:
-            f.write(self.download())
+            f.write(content)
+        del content
 
     def delete(self) -> bool:
         try:

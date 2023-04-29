@@ -1,4 +1,5 @@
 import json
+import tempfile
 
 from opentrain.utils import (
     list_fine_tunes,
@@ -22,15 +23,17 @@ def test_prepare_openai_dataset() -> None:
 
 def test_validate_openai_dataset() -> None:
     data = [{"prompt": "Hello", "completion": "World"}]
-    with open("test.jsonl", "w") as f:
-        for entry in data:
-            json.dump(entry, f)
-            f.write("\n")
-    assert validate_openai_dataset("test.jsonl")
+    with tempfile.NamedTemporaryFile(suffix=".jsonl") as f:
+        with open(f.name, "w") as f:
+            for entry in data:
+                json.dump(entry, f)
+                f.write("\n")
+        assert validate_openai_dataset(f.name)
 
     data = [{"not_prompt": "Hello", "not_completion": "World"}]
-    with open("test.jsonl", "w") as f:
-        for entry in data:
-            json.dump(entry, f)
-            f.write("\n")
-    assert validate_openai_dataset("test.jsonl") is False
+    with tempfile.NamedTemporaryFile(suffix=".jsonl") as f:
+        with open(f.name, "w") as f:
+            for entry in data:
+                json.dump(entry, f)
+                f.write("\n")
+        assert validate_openai_dataset(f.name) is False

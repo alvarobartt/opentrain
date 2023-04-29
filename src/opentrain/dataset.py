@@ -104,13 +104,13 @@ class File(Dataset):
 
 def list_datasets(organization: Union[str, None] = None) -> List[Dataset]:
     return [
-        Dataset(file_id=file.id, organization=organization)
-        for file in openai.File.list(organization=organization)
+        Dataset(file_id=file["id"], organization=organization)
+        for file in openai.File.list(organization=organization)["data"]
     ]
 
 
 def list_files(organization: Union[str, None] = None) -> List[File]:
     return [
-        File(file_id=file.id, organization=organization)
-        for file in openai.File.list(organization=organization)
+        File(file_id=file["id"], organization=organization)
+        for file in openai.File.list(organization=organization)["data"]
     ]

@@ -48,4 +48,6 @@ extra:
 
 nav:
   - Home: index.md
+  - Usage: usage.md
+  - Warning: warning.md
   - License: license.md

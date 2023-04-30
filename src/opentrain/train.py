@@ -25,7 +25,7 @@ class Train:
         >>> from opentrain import Train, Dataset
         >>> trainer = Train(model="curie")
         >>> dataset = Dataset(file_id="file-1234")
-        >>> trainer.train(dataset, epochs=5, batch_size=32)
+        >>> trainer.train(dataset, n_epochs=5, batch_size=32)
         >>> trainer.track()
 
         >>> from opentrain import Train
@@ -35,7 +35,7 @@ class Train:
                 "train": "file-1234",
                 "eval": "file-5678",
             },
-            epochs=5,
+            n_epochs=5,
             batch_size=32
         )
         >>> trainer.track()

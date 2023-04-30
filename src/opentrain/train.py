@@ -1,5 +1,5 @@
 import warnings
-from typing import Any, Dict, Generator
+from typing import Any, Dict, Iterator
 
 import openai
 
@@ -130,7 +130,7 @@ class Train:
         """
         self.train(dataset, **kwargs)
 
-    def track(self) -> Generator[Dict[str, Any]]:
+    def track(self) -> Iterator[Dict[str, Any]]:
         """Tracks the progress of the training/fine-tuning process.
 
         Returns:

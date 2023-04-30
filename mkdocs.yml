@@ -50,4 +50,5 @@ nav:
   - Home: index.md
   - Usage: usage.md
   - Warning: warning.md
+  - TODOs: todos.md
   - License: license.md

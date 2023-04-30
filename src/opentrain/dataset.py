@@ -163,7 +163,7 @@ class Dataset:
 
 
 class File(Dataset):
-    """This class is just a wrapper around Dataset with the same functionality. It's
+    """This class is just a wrapper around `Dataset` with the same functionality. It's
     just here to keep the same naming convention as OpenAI."""
 
     pass
@@ -185,7 +185,7 @@ def list_datasets(organization: Union[str, None] = None) -> List[Dataset]:
 
 
 def list_files(organization: Union[str, None] = None) -> List[File]:
-    """This function is just a wrapper around list_datasets with the same
+    """This function is just a wrapper around `list_datasets` with the same
     functionality. It's just here to keep the same naming convention as OpenAI.
 
     Args:

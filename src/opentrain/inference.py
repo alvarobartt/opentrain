@@ -1,6 +1,9 @@
 import warnings
+from typing import List
 
 import openai
+
+from opentrain.schemas import FineTune
 
 warnings.simplefilter("once", category=UserWarning)
 
@@ -77,3 +80,12 @@ class Inference:
                 " again."
             )
         return cls(model=model)
+
+
+def list_fine_tunes() -> List[FineTune]:
+    """List all fine-tuned models in your OpenAI account.
+
+    Returns:
+        A list of OpenAI fine-tunes, as `FineTune` objects.
+    """
+    return [FineTune(**fine_tune) for fine_tune in openai.FineTune.list()["data"]]

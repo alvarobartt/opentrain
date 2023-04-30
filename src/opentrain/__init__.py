@@ -4,7 +4,7 @@ __author__ = "Alvaro Bartolome <alvarobartt@gmail.com>"
 __version__ = "0.1.0"
 
 from opentrain.dataset import Dataset, File, list_datasets, list_files
-from opentrain.inference import Inference
+from opentrain.inference import Inference, list_fine_tunes
 
 __all__ = [
     "Dataset",
@@ -12,4 +12,5 @@ __all__ = [
     "list_datasets",
     "list_files",
     "Inference",
+    "list_fine_tunes",
 ]

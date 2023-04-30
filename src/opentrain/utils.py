@@ -1,31 +1,9 @@
 import json
 from pathlib import Path
-from typing import List, Union
+from typing import Union
 from uuid import uuid4
 
-import openai
-
 from opentrain.schemas import PromptCompletion
-
-
-def list_fine_tunes(just_succeeded: bool = True) -> List[str]:
-    """List all fine-tuned models in your OpenAI account.
-
-    Args:
-        just_succeeded: If True, only return models that have succeeded.
-
-    Returns:
-        A list of fine-tuned model IDs.
-    """
-    fine_tunes = openai.FineTune.list()["data"]
-    if just_succeeded:
-        # TODO(alvarobartt): add an `Enum` to handle possible statuses.
-        return [
-            fine_tune["fine_tuned_model"]
-            for fine_tune in fine_tunes
-            if fine_tune["status"] == "succeeded"
-        ]
-    return [fine_tune["fine_tuned_model"] for fine_tune in fine_tunes]
 
 
 def prepare_openai_dataset(

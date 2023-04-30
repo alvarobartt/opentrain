@@ -13,15 +13,28 @@ More information about OpenAI Fine-tuning at https://platform.openai.com/docs/gu
 
 ## 💻 Usage
 
+### 📦 Data management
+
+```python
+import openai
+from opentrain import Dataset
+
+openai.api_key = "<ADD_OPENAI_API_KEY_HERE>"
+
+dataset = Dataset.from_file("data.jsonl")
+dataset.info
+dataset.download(output_path="downloaded-data.jsonl")
+```
+
 ### 🦾 Fine-tune
 
 ```python
 import openai
-from opentrain.train import OpenAITrainer
+from opentrain import Train
 
 openai.api_key = "<ADD_OPENAI_API_KEY_HERE>"
 
-trainer = OpenAITrainer(model="ada")
+trainer = Train(model="ada")
 trainer.train(
     [
         {
@@ -40,11 +53,11 @@ trainer.train(
 
 ```python
 import openai
-from opentrain.predict import OpenAIPredict
+from opentrain import Inference
 
 openai.api_key = "<ADD_OPENAI_API_KEY_HERE>"
 
-predict = OpenAIPredict(model="ada:ft-personal-2021-03-01-00-00-01")
+predict = Inference(model="ada:ft-personal-2021-03-01-00-00-01")
 predict.predict("I love to play ->")
 ```
 

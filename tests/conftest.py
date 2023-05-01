@@ -20,6 +20,12 @@ def training_data() -> list:
 
 
 @pytest.fixture
+def file_id() -> str:
+    """File ID for an uploaded file in the OpenAI API."""
+    return "file-TnIO5MBmKZmzOtpM4ISCkEwx"
+
+
+@pytest.fixture
 def fine_tune_id() -> str:
     """Fine-tune ID for the IMDB text classification model trained in `examples/text_classification_imdb.ipynb`.
     """

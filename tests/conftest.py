@@ -22,7 +22,7 @@ def training_data() -> list:
 @pytest.fixture
 def file_id() -> str:
     """File ID for an uploaded file in the OpenAI API."""
-    return "file-VfbjfQXHYzJ8Qhi9Ls5tPlKC"
+    return "file-TnIO5MBmKZmzOtpM4ISCkEwx"
 
 
 @pytest.fixture

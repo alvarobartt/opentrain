@@ -101,12 +101,16 @@ class Train:
                 " the model."
             )
 
-        fine_tune_response = openai.FineTune.create(
-            training_file=train_file_id,
-            validation_file=validation_file_id,
-            model=self.model,
+        fine_tune_args = {
+            "training_file": train_file_id,
+            "model": self.model,
             **kwargs,
-        )
+        }
+
+        if validation_file_id:
+            fine_tune_args["validation_file"] = validation_file_id
+
+        fine_tune_response = openai.FineTune.create(**fine_tune_args)
         self.fine_tune_id = fine_tune_response.id
 
         warnings.warn(
